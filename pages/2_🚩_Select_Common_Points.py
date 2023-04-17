@@ -95,7 +95,11 @@ col1,col2 = st.columns([7,3])
 col1.markdown('<h1 style="margin-bottom:0rem;margin-top:-5rem;text-align: center">Common Points</h1>', unsafe_allow_html=True)
 col1.markdown('<h5 style="color:grey;margin-bottom:0.5rem;margin-top:-1rem;text-align: center">At least 2 points have to be selected</h5>', unsafe_allow_html=True)
 
-number_of_cp = len(st.session_state.common_points_df.index)
+try:
+    number_of_cp = len(st.session_state.common_points_df.index)
+except:
+    switch_page("Upload_Coordinates")
+
 if number_of_cp == 0:
     col1.error("No common points", icon="⚠️")
     button_Upload_Coordinates= col1.button(
@@ -240,7 +244,7 @@ else:
             update_mode='grid_changed',
             allow_unsafe_jscode = True,
             columns_auto_size_mode=ColumnsAutoSizeMode.NO_AUTOSIZE,
-            reload_data = False,
+            reload_data = True,
             enable_enterprise_modules=False,
             theme= 'alpine'
             #theme= 'balham'
@@ -295,7 +299,7 @@ else:
         if not np.array_equal(st.session_state.selected_rows_array,st.session_state.common_points_df["Selected"].array):
             update_transformation()
             st.session_state.selected_rows_array = st.session_state.common_points_df["Selected"].array
-            st.session_state.grid_key += 1
+            #st.session_state.grid_key += 1
             st.experimental_rerun()
 
 

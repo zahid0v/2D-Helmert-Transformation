@@ -36,7 +36,12 @@ st.markdown('<h1 style="margin-bottom:2rem;margin-top:-5rem;text-align: center">
 
 col1, col2 = st.columns([2,1],gap="medium")
 
-if len(st.session_state.common_points_df.columns) == 6:
+try:
+    number_of_cp_columns = len(st.session_state.common_points_df.columns)
+except:
+    switch_page("Upload_Coordinates")
+
+if number_of_cp_columns == 6:
     col1.error("Please select common points first", icon="⚠️")
     button_Common_Points= col1.button(
             """**Select Common Points**""",
@@ -158,7 +163,7 @@ else: #calculated transformed point df and generate output text report
         )
 
     with col2:
-        #transformed_points_df = transformed_points_df.round(3)
+        transformed_points_df = transformed_points_df.round(3) # necessary for csv export
         transformed_points_df.columns = header_list
 
         target_output_format = {}

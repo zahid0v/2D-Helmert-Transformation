@@ -14,6 +14,9 @@ def local_css():
     with open("style.css") as style_css_file:
         st.markdown(f"<style>{style_css_file.read()}</style>", unsafe_allow_html=True)
 
+@st.cache_data
+def load_image():
+    st.image("yx1.jpg")
 
 # -----Page Configuration
 st.set_page_config(page_title="2D Helmert Transformation", page_icon="🌐", layout="wide")
@@ -38,7 +41,8 @@ col1,col2 = st.columns([5,1])
 # ---- Title and Description
 col1.markdown('<h1 style="margin-bottom:1rem;margin-top:-6rem;text-align: center">2D Helmert Transformation</h1>',unsafe_allow_html=True,)
 
-col2.image("yx1.jpg")
+with col2:
+    load_image()
 
 with col1:
     tab1, tab2 = st.tabs(["General Information", "How to use this app"])
