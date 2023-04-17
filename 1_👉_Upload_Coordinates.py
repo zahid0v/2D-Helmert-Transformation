@@ -336,7 +336,7 @@ with col2:
     st.session_state.target_df["Duplicate"] = duplicates_array_target
 
     if True in st.session_state.target_df["Duplicate"].array: # if duplicates exist
-        duplicate_names_list_t = st.session_state.target_df.loc[st.session_state.target_df["Duplicate"] == True, st.session_state.target_header_names[0]].tolist()
+        duplicate_names_list_t = st.session_state.target_df.loc[st.session_state.target_df["Duplicate"], st.session_state.target_header_names[0]].tolist()
         if len(duplicate_names_list_t) == 1:
             st.warning("Duplicate point: " + duplicate_names_list_t[0]+" - Only first point is used in common points", icon="⚠️")
         elif len(duplicate_names_list_t) > 1:
@@ -377,9 +377,8 @@ else:
 
     all_points_df["Selected"] = np.where(~all_points_df.isnull().any(axis=1) & ~all_points_df["Duplicate"].array, True, False)
     all_points_df.drop("Duplicate", inplace=True, axis=1)
-    st.session_state.common_points_df = all_points_df[all_points_df.Selected == True].copy()
-
-    st.session_state.other_points_df = all_points_df[all_points_df.Selected == False].copy()
+    st.session_state.common_points_df = all_points_df[all_points_df.Selected]
+    st.session_state.other_points_df = all_points_df[~all_points_df.Selected]
     st.session_state.common_points_df.reset_index(drop=True,inplace=True)# important to start new index numbers 0,1,2,etc.
     st.session_state.other_points_df.reset_index(drop=True,inplace=True)
     #st.session_state.common_points_df = common_points_df.copy()
