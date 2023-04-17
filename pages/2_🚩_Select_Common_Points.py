@@ -149,8 +149,8 @@ else:
 
     if 'selected_rows_array' not in st.session_state:
         st.session_state.selected_rows_array = st.session_state.common_points_df["Selected"].array
-    if 'grid_key' not in st.session_state:
-        st.session_state.grid_key = 0
+    #if 'grid_key' not in st.session_state:
+    #    st.session_state.grid_key = 0
 
     #define height parameter for height of AG-Grid
     if number_of_cp < 6:
@@ -236,7 +236,8 @@ else:
     with col1:
         st.session_state.ag_grid=AgGrid(
             st.session_state.common_points_df[["Selected","Name","y_1","x_1","y_2","x_2","vy","vx"]],
-            key=st.session_state.grid_key,
+            #key=st.session_state.grid_key,
+            key="grid1",
             gridOptions = gridOptions,
             height = height,
             #fit_columns_on_grid_load = True,
@@ -291,8 +292,8 @@ else:
 
     if sum(st.session_state.ag_grid['data']["Selected"])<2:
         st.warning("At least 2 common points have to be selected", icon="⚠️")
-        st.session_state.grid_key += 1
-        st.experimental_rerun()
+        #st.session_state.grid_key += 1
+        #st.experimental_rerun()
     else:
         st.session_state.common_points_df["Selected"]= st.session_state.ag_grid['data']["Selected"]
 
