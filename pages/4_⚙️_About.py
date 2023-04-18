@@ -65,19 +65,19 @@ with col1:
             \begin{bmatrix} Y \\ X \end{bmatrix} ^{Source}
          
             ''')
-        st.write("The equations are modified by $a=k \cdot cosθ$ and $b=k \cdot sinθ$ to get the equations with the 4 parameters $Y_0,X_0,a,b$:")
+        st.write("With $a=k \cdot cosθ$ and $b=k \cdot sinθ$ the equations can be written with the 4 parameters $Y_0,X_0,a,b$ as:")
         st.latex(r'''
             y^{Target} = Y_0 + b \cdot x^{Source} + a \cdot y^{Source}
             ''')
         st.latex(r'''
             x^{Target} = X_0 + a \cdot x^{Source} - b \cdot y^{Source}
             ''')
-        st.caption("Please note that contrary to the mathematical convention, in this case according to geodetic practice, the x-axis points North and the y-axis East.")
+        st.caption("Please note that contrary to the mathematical convention, in this case the equations are adjusted to geodetic practice, where the x-axis points North and the y-axis East.")
         st.markdown("""
         Two or more points with known coordinates in both source and target system must be known
         to determine the transformation parameters.
         If more than 2 common points are given, a standard deviation and residuals of the common
-        points can be calculated.
+        points can be calculated.  
         In this app the centre of gravity method (and not the least squares method) is used to
         calculate the transformation parameters. 
         """)

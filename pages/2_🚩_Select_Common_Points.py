@@ -1,6 +1,6 @@
 import math
 import streamlit as st
-#import pandas as pd
+import pandas as pd
 import numpy as np
 
 import altair as alt
@@ -83,6 +83,9 @@ st.set_page_config(page_title='2D Helmert Transformation',
     page_icon='🌐',layout='wide')
     #initial_sidebar_state="collapsed"
 
+       
+
+
 #----menu button invisible
 #st.markdown(""" <style>#MainMenu {visibility: hidden;}footer {visibility: hidden;}</style> """, unsafe_allow_html=True)
 
@@ -130,10 +133,12 @@ elif number_of_cp == 1:
         switch_page("Upload_Coordinates")
 else:
     update_transformation()
+    
+    if 'selected_rows_array' not in st.session_state:
+        st.session_state.selected_rows_array = st.session_state.common_points_df["Selected"].array
 
     domain = [True, False]
     range1 = ['mediumblue', 'aqua']
-
     title1 = alt.TitleParams('Common Points', anchor='middle')
     chart_points=alt.Chart(st.session_state.common_points_df,title=title1).mark_circle(size=60).encode(
         alt.X('y_1', title=st.session_state.source_header_names[1],scale=alt.Scale(zero=False,domain=st.session_state.domain_list[0])),
@@ -142,15 +147,21 @@ else:
         alt.Size('Selected', scale=alt.Scale(range=[60, 100]),legend=None),
         tooltip=["Name"]
     ).interactive()
-
     col2.write("")
     col2.write("")
     col2.altair_chart(chart_points,use_container_width=True)
 
-    if 'selected_rows_array' not in st.session_state:
-        st.session_state.selected_rows_array = st.session_state.common_points_df["Selected"].array
-    #if 'grid_key' not in st.session_state:
-    #    st.session_state.grid_key = 0
+    range2 = ['mediumblue', 'grey']
+    title2 = alt.TitleParams('Source Coordinates', anchor='middle',subtitle='with selected Common Points')
+    chart_points2=alt.Chart(st.session_state.all_points_df,title=title2).mark_circle(size=60).encode(
+        alt.X('y_1', title=st.session_state.source_header_names[1],scale=alt.Scale(zero=False,domain=st.session_state.domain_list[0])),
+        alt.Y('x_1', title=st.session_state.source_header_names[2],scale=alt.Scale(zero=False,domain=st.session_state.domain_list[1])),
+        alt.Color('Selected',scale=alt.Scale(domain=domain, range=range2),legend=None),
+        alt.Size('Selected', scale=alt.Scale(range=[60, 100]),legend=None),
+        tooltip=["Name"]
+    ).interactive()
+    col2.altair_chart(chart_points2,use_container_width=True)
+
 
     #define height parameter for height of AG-Grid
     if number_of_cp < 6:
@@ -299,6 +310,9 @@ else:
 
         if not np.array_equal(st.session_state.selected_rows_array,st.session_state.common_points_df["Selected"].array):
             update_transformation()
+            st.session_state.all_points_df = pd.concat([st.session_state.common_points_df,st.session_state.other_points_df], axis=0,ignore_index = True)
+            st.session_state.all_points_df = st.session_state.all_points_df[['Name','y_1','x_1','y_2','x_2','Selected']]
+        
             st.session_state.selected_rows_array = st.session_state.common_points_df["Selected"].array
             #st.session_state.grid_key += 1
             st.experimental_rerun()

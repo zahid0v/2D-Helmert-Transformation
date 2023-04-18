@@ -357,7 +357,7 @@ if not upload1 and not upload2 and len(st.session_state.common_points_df.columns
     pass
 else:
     # --- merging source and target df and creating common points df --------------------------
-    all_points_df = pd.merge(
+    st.session_state.all_points_df = pd.merge(
     st.session_state.source_df.iloc[:, list(range(3)) + [-1]], # only using first 3 columns +"Duplicate"
     temp_target_df.iloc[:, list(range(3))], # only using first 3 columns
     #on=column_name1,
@@ -373,19 +373,17 @@ else:
 
 
     if st.session_state.source_header_names[0] != st.session_state.target_header_names[0]:
-        all_points_df.drop(st.session_state.target_header_names[0], inplace=True, axis=1)
+        st.session_state.all_points_df.drop(st.session_state.target_header_names[0], inplace=True, axis=1)
 
-    all_points_df["Selected"] = np.where(~all_points_df.isnull().any(axis=1) & ~all_points_df["Duplicate"].array, True, False)
-    all_points_df.drop("Duplicate", inplace=True, axis=1)
-    st.session_state.common_points_df = all_points_df[all_points_df.Selected]
-    st.session_state.other_points_df = all_points_df[~all_points_df.Selected]
+    st.session_state.all_points_df["Selected"] = np.where(~st.session_state.all_points_df.isnull().any(axis=1) & ~st.session_state.all_points_df["Duplicate"].array, True, False)
+    st.session_state.all_points_df.drop("Duplicate", inplace=True, axis=1)
+
+    st.session_state.all_points_df.columns = ["Name","y_1","x_1","y_2","x_2","Selected"] # temporary header for common points to use my functions
+
+    st.session_state.common_points_df = st.session_state.all_points_df[st.session_state.all_points_df.Selected]
+    st.session_state.other_points_df = st.session_state.all_points_df[~st.session_state.all_points_df.Selected]
     st.session_state.common_points_df.reset_index(drop=True,inplace=True)# important to start new index numbers 0,1,2,etc.
     st.session_state.other_points_df.reset_index(drop=True,inplace=True)
-    #st.session_state.common_points_df = common_points_df.copy()
-    st.session_state.common_points_df.columns = ["Name","y_1","x_1","y_2","x_2","Selected"] # temporary header for common points to use my functions
-    #st.session_state.other_points_df = other_points_df.copy()
-    st.session_state.other_points_df.columns = ["Name","y_1","x_1","y_2","x_2","Selected"] # temporary header for common points to use my functions
-
 
     # session state settings to be used on next pages
     #needs to be done here because it is only done when new source and targets files are uploaded
