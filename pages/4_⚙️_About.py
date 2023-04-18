@@ -72,14 +72,12 @@ with col1:
         st.latex(r'''
             x^{Target} = X_0 + a \cdot x^{Source} - b \cdot y^{Source}
             ''')
-        st.caption("Please note that contrary to the mathematical convention, in this case the equations are adjusted to geodetic practice, where the x-axis points North and the y-axis East.")
+        st.caption("Please note that contrary to the mathematical convention, the equations are written according to geodetic practice, where the x-axis points North and the y-axis East.")
         st.markdown("""
         Two or more points with known coordinates in both source and target system must be known
         to determine the transformation parameters.
         If more than 2 common points are given, a standard deviation and residuals of the common
         points can be calculated.  
-        In this app the centre of gravity method (and not the least squares method) is used to
-        calculate the transformation parameters. 
         """)
 
     with tab2:

@@ -56,7 +56,7 @@ if number_of_cp_columns == 6:
     if button_Common_Points:
         switch_page("Select_Common_Points")
 else: #calculate transformed point df and generate output text report
-    transformed_points_df=st.session_state.all_points_df[['Name','y_1','x_1','Selected']]
+    transformed_points_df=st.session_state.all_points_df[['Name','y_1','x_1','Selected']].copy()
     transformed_points_df["y_new"] = st.session_state.Y0 + st.session_state.b * transformed_points_df["x_1"] + st.session_state.a * transformed_points_df["y_1"]
     transformed_points_df["x_new"] = st.session_state.X0 + st.session_state.a * transformed_points_df["x_1"] - st.session_state.b * transformed_points_df["y_1"]
     transformed_points_df.sort_values(by=['Selected','Name'], inplace=True)
