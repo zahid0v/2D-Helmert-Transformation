@@ -301,12 +301,13 @@ else:
             st.markdown(f'<p style="margin-bottom:1rem;margin-top:0rem;text-align: left">{"B: &ensp;{:0.8f}".format(st.session_state.b)}</p>', unsafe_allow_html=True)
 
 
-    if sum(st.session_state.ag_grid['data']["Selected"])<2:
+    if sum(st.session_state.ag_grid['data']["Selected"]) < 2:
         st.warning("At least 2 common points have to be selected", icon="⚠️")
         #st.session_state.grid_key += 1
         #st.experimental_rerun()
     else:
-        st.session_state.common_points_df["Selected"]= st.session_state.ag_grid['data']["Selected"]
+        st.session_state.common_points_df=st.session_state.common_points_df.copy()
+        st.session_state.common_points_df['Selected'] = st.session_state.ag_grid['data']["Selected"]
 
         if not np.array_equal(st.session_state.selected_rows_array,st.session_state.common_points_df["Selected"].array):
             update_transformation()
