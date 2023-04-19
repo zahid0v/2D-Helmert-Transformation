@@ -318,18 +318,18 @@ else:
             #st.session_state.grid_key += 1
             st.experimental_rerun()
 
+    with col1:
+        col1a, col1b,col1c = st.columns([3,2,3])
+        with col1b:
+            button_Compute = st.button(
+                """**Transformed Points**""",
+                key="StartTrafo2",
+                help=None,
+                on_click=None,
+                args=None,
+                type="primary",
+                disabled=False,
+            )
 
-    row2_col1, row2_col2,row2_col3 = st.columns([3,2,6])
-    with row2_col2:
-        button_Compute = st.button(
-            """**Transformed Points**""",
-            key="StartTrafo2",
-            help=None,
-            on_click=None,
-            args=None,
-            type="primary",
-            disabled=False,
-        )
-
-    if button_Compute:
-        switch_page("Download_Transformed_Points")
+        if button_Compute:
+            switch_page("Download_Transformed_Points")

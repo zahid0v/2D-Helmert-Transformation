@@ -84,9 +84,11 @@ with col1:
         st.markdown(
         """
         - **Upload Coordinates:** The user can upload files with the coordinates in the source
-          and target system. The files must have at least three columns with column one for
+          and target system. The files must have at least three columns with column 1 for
            the point name, column 2 for the East coordinate and column 3 for the North coordinate.
-           If nothing is uploaded example coordinates are used.
+           The files may have one header row (i.e. Name/East/North or Point/x/y). If no text header 
+           row is detected the default header is used (Name/y/x). If nothing is uploaded example
+           coordinates are used.
         - **Select Common Points:** Common points are identified by the point name.
            At first all common points are selected and shown with their residuals.
           The user can unselect or select points but at least 2 common points need to be selected.
