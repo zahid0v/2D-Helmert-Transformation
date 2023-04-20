@@ -1,13 +1,19 @@
+.katex-html {
+    text-align: left;
+    margin-top:-1rem;
+}
+[data-testid="stSidebar"][aria-expanded="true"]{
+           min-width: 170px;
+           max-width: 280px;
+       }
 div[data-testid="stExpander"] div[role="button"] p {
     font-size: 1.5rem;
     font-weight: 700;
 }
-
 button[data-baseweb="tab"] > div[data-testid="stMarkdownContainer"] > p {
     font-size: 1.5rem;
     font-weight: 700;
 }
-
 .text-center {
   text-align: center;
 }

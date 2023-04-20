@@ -14,26 +14,15 @@ def local_css():
     with open("style.css") as style_css_file:
         st.markdown(f"<style>{style_css_file.read()}</style>", unsafe_allow_html=True)
 
+
 @st.cache_data
 def load_image():
     st.image("yx1.jpg")
 
 # -----Page Configuration
 st.set_page_config(page_title="2D Helmert Transformation", page_icon="🌐", layout="wide")
-st.markdown('''
-<style>
-.katex-html {
-    text-align: left;
-    margin-top:-1rem;
-}
-</style>''',
-unsafe_allow_html=True
-)
 
-
-# ----menu button invisible
-# st.markdown(""" <style>#MainMenu {visibility: hidden;}footer {visibility: hidden;}</style> """, unsafe_allow_html=True)
-
+# cached function to use local css from file style.css
 local_css()
 
 col1,col2 = st.columns([5,1])

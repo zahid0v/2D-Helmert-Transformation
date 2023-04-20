@@ -7,13 +7,6 @@ import pandas as pd
 from streamlit_extras.switch_page_button import switch_page
 
 
-@st.cache_data
-def local_css():
-    # function to use local style from file style.css
-    with open("style.css") as style_css_file:
-        st.markdown(f"<style>{style_css_file.read()}</style>", unsafe_allow_html=True)
-
-
 #@st.cache_data
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
@@ -24,10 +17,32 @@ def convert_df(df):
 # -----Page Configuration
 st.set_page_config(page_title="2D Helmert Transformation", page_icon="🌐", layout="wide")
 
-# ----menu button invisible
-# st.markdown(""" <style>#MainMenu {visibility: hidden;}footer {visibility: hidden;}</style> """, unsafe_allow_html=True)
 
-local_css()
+# style settings, slightly different from other pages which use style.css
+st.markdown('''
+<style>
+.katex-html {
+    text-align: left;
+    margin-top:-1rem;
+}
+[data-testid="stSidebar"][aria-expanded="true"]{
+           min-width: 170px;
+           max-width: 285px;
+       }
+div[data-testid="stExpander"] div[role="button"] p {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+button[data-baseweb="tab"] > div[data-testid="stMarkdownContainer"] > p {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.text-center {
+  text-align: center;
+}
+</style>''',
+unsafe_allow_html=True
+)
 
 
 # ---- Title and Description

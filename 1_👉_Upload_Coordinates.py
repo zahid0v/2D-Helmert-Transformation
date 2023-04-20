@@ -8,6 +8,13 @@ from streamlit_extras.switch_page_button import switch_page
 
 
 @st.cache_data
+def local_css():
+    # function to use local style from file style.css
+    with open("style.css") as style_css_file:
+        st.markdown(f"<style>{style_css_file.read()}</style>", unsafe_allow_html=True)
+
+
+@st.cache_data
 def example_source_upload():
     # uploads example source csv file and returns dataframe
     df = pd.read_csv("source_withheader.csv")
@@ -49,8 +56,9 @@ def calc_domain():
 # -----Page Configuration
 st.set_page_config(page_title="2D Helmert Transformation", page_icon="🌐", layout="wide")
 
-# ----menu button invisible
-# st.markdown(""" <style>#MainMenu {visibility: hidden;}footer {visibility: hidden;}</style> """, unsafe_allow_html=True)
+# cached function to use local css from file style.css
+local_css()
+
 
 # defining session states
 if "source_df" not in st.session_state:
@@ -380,8 +388,8 @@ else:
 
     st.session_state.all_points_df.columns = ["Name","y_1","x_1","y_2","x_2","Selected"] # temporary header for common points to use my functions
 
-    st.session_state.common_points_df = st.session_state.all_points_df[st.session_state.all_points_df.Selected]
-    st.session_state.other_points_df = st.session_state.all_points_df[~st.session_state.all_points_df.Selected]
+    st.session_state.common_points_df = st.session_state.all_points_df[st.session_state.all_points_df.Selected].copy()
+    st.session_state.other_points_df = st.session_state.all_points_df[~st.session_state.all_points_df.Selected].copy()
     st.session_state.common_points_df.reset_index(drop=True,inplace=True)# important to start new index numbers 0,1,2,etc.
     st.session_state.other_points_df.reset_index(drop=True,inplace=True)
 

@@ -11,7 +11,6 @@ from streamlit_extras.switch_page_button import switch_page
 @st.cache_data
 def local_css():
     # function to use local style from file style.css
-    # style is used to change font size of expander text
     with open("style.css") as style_css_file:
         st.markdown(f"<style>{style_css_file.read()}</style>", unsafe_allow_html=True)
 
@@ -82,12 +81,6 @@ def update_transformation():
 st.set_page_config(page_title='2D Helmert Transformation',
     page_icon='🌐',layout='wide')
     #initial_sidebar_state="collapsed"
-
-       
-
-
-#----menu button invisible
-#st.markdown(""" <style>#MainMenu {visibility: hidden;}footer {visibility: hidden;}</style> """, unsafe_allow_html=True)
 
 # cached function to use local css from file style.css
 local_css()
@@ -221,13 +214,13 @@ else:
     gb.configure_column("Name", headerName=st.session_state.source_header_names[0], headerClass='ag-justify-content-header',minWidth=30, maxWidth=90)
     gb.configure_column("y_1", headerName="- - - - - Source System  - - - - -",
         children=[
-             { "headerName": st.session_state.source_header_names[1], "minWidth": "90", "maxWidth": "115", "field": "y_1", "type": ["numericColumn","numberColumnFilter","customNumericFormat"], "precision":3},
-             { "headerName": st.session_state.source_header_names[2], "minWidth": "90", "maxWidth": "115", "field": "x_1", "type": ["numericColumn","numberColumnFilter","customNumericFormat"], "precision":3},
+             { "headerName": st.session_state.source_header_names[1], "minWidth": "70", "maxWidth": "115", "field": "y_1", "type": ["numericColumn","numberColumnFilter","customNumericFormat"], "precision":3},
+             { "headerName": st.session_state.source_header_names[2], "minWidth": "70", "maxWidth": "115", "field": "x_1", "type": ["numericColumn","numberColumnFilter","customNumericFormat"], "precision":3},
            ])
     gb.configure_column("y_2", headerName="- - - - -  Target System  - - - - -",
         children=[
-             { "headerName": st.session_state.source_header_names[1], "minWidth": "90", "maxWidth": "115", "field": "y_2", "type": ["numericColumn","numberColumnFilter","customNumericFormat"], "precision":3},
-             { "headerName": st.session_state.source_header_names[2], "minWidth": "90", "maxWidth": "115", "field": "x_2", "type": ["numericColumn","numberColumnFilter","customNumericFormat"], "precision":3},
+             { "headerName": st.session_state.source_header_names[1], "minWidth": "70", "maxWidth": "115", "field": "y_2", "type": ["numericColumn","numberColumnFilter","customNumericFormat"], "precision":3},
+             { "headerName": st.session_state.source_header_names[2], "minWidth": "70", "maxWidth": "115", "field": "x_2", "type": ["numericColumn","numberColumnFilter","customNumericFormat"], "precision":3},
            ])
     gb.configure_column("vy", headerName="- - - Residuals - - -",
         children=[
@@ -306,7 +299,7 @@ else:
         #st.session_state.grid_key += 1
         #st.experimental_rerun()
     else:
-        st.session_state.common_points_df=st.session_state.common_points_df.copy()
+        #st.session_state.common_points_df=st.session_state.common_points_df.copy()
         st.session_state.common_points_df['Selected'] = st.session_state.ag_grid['data']["Selected"]
 
         if not np.array_equal(st.session_state.selected_rows_array,st.session_state.common_points_df["Selected"].array):
