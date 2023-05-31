@@ -77,9 +77,9 @@ if "common_points_df" not in st.session_state:
     st.session_state.common_points_df = pd.DataFrame()
 
 # ---- Title and Description
-st.markdown('<h1 style="margin-bottom:0rem;margin-top:-4rem;text-align: center">2D Helmert Transformation</h1>',unsafe_allow_html=True,)
-st.markdown('<h5 style="color:grey;margin-bottom:2rem;margin-top:-1rem;text-align: center">4 Parameter Similarity Transformation</h5>', unsafe_allow_html=True)
-
+st.markdown('<meta name="description" content="This app calculates transformation parameters and transforms coordinates from one rectangular source coordinate system to another target coordinate system. At least 2 points with known coordinates in both systems must be known to determine the transformation parameters.">', unsafe_allow_html=True)
+st.markdown('<h1 style="margin-bottom:0rem;margin-top:-6rem;text-align: center">2D Helmert Transformation</h1>',unsafe_allow_html=True,)
+st.markdown('<h5 style="color:grey;margin-bottom:2rem;margin-top:-2em;text-align: center">4 Parameter Similarity Transformation</h5>', unsafe_allow_html=True)
 
 col1, col2 = st.columns(2,gap="large")
 

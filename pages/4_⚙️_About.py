@@ -39,7 +39,7 @@ with col1:
         st.markdown("""
         A 2D Helmert transformation is used to transform coordinates from one rectangular source coordinate system to another target coordinate system.
         It is also known as 4 parameter similarity transformation.  
-        The 2D Helmert transformation is the most common planar transformation method in surveying. The shape of objects is not distorted.  
+        The 2D Helmert transformation is the most common 2D transformation method in surveying. The shape of objects is not distorted.  
         The transformation consists of 4 parameters:
             
         $Y_0:$&ensp;Translation (shift) from source into target system in the y-axis direction   
