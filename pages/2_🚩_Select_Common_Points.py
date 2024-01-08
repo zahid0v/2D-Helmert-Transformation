@@ -297,7 +297,7 @@ else:
     if sum(st.session_state.ag_grid['data']["Selected"]) < 2:
         st.warning("At least 2 common points have to be selected", icon="⚠️")
         #st.session_state.grid_key += 1
-        #st.experimental_rerun()
+        #st.rerun()
     else:
         #st.session_state.common_points_df=st.session_state.common_points_df.copy()
         st.session_state.common_points_df['Selected'] = st.session_state.ag_grid['data']["Selected"]
@@ -309,7 +309,7 @@ else:
         
             st.session_state.selected_rows_array = st.session_state.common_points_df["Selected"].array
             #st.session_state.grid_key += 1
-            st.experimental_rerun()
+            st.rerun()
 
     with col1:
         col1a, col1b,col1c = st.columns([3,2,3])
